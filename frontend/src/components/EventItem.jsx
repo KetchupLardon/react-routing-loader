@@ -1,9 +1,9 @@
-import classes from './EventItem.module.css';
+import classes from "./EventItem.module.css";
 
-function EventItem({ event }) {
-  function startDeleteHandler() {
+export const EventItem = ({ event }) => {
+  const startDeleteHandler = () => {
     // ...
-  }
+  };
 
   return (
     <article className={classes.event}>
@@ -17,6 +17,4 @@ function EventItem({ event }) {
       </menu>
     </article>
   );
-}
-
-export default EventItem;
+};
