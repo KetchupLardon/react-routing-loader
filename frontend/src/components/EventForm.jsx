@@ -1,8 +1,15 @@
 import { useNavigate } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
+import { capitalizeFirstLetter } from "../utils/strings";
 
-export const EventForm = ({ method, event }) => {
+const FORM_INPUT = [
+  { type: "text", name: "title" },
+  { type: "url", name: "image" },
+  { type: "date", name: "date" },
+];
+
+export const EventForm = ({ _method, event }) => {
   const navigate = useNavigate();
   const cancelHandler = () => {
     navigate("..");
@@ -10,36 +17,18 @@ export const EventForm = ({ method, event }) => {
 
   return (
     <form className={classes.form}>
-      <p>
-        <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          type="text"
-          name="title"
-          required
-          defaultValue={event ? event.title : ""}
-        />
-      </p>
-      <p>
-        <label htmlFor="image">Image</label>
-        <input
-          id="image"
-          type="url"
-          name="image"
-          required
-          defaultValue={event ? event.image : ""}
-        />
-      </p>
-      <p>
-        <label htmlFor="date">Date</label>
-        <input
-          id="date"
-          type="date"
-          name="date"
-          required
-          defaultValue={event ? event.date : ""}
-        />
-      </p>
+      {FORM_INPUT.map(({ type, name }) => (
+        <p>
+          <label htmlFor={name}>{capitalizeFirstLetter(name)}</label>
+          <input
+            id={name}
+            type={type}
+            name={name}
+            required
+            defaultValue={event ? event[name] : ""}
+          />
+        </p>
+      ))}
       <p>
         <label htmlFor="description">Description</label>
         <textarea

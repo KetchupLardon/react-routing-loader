@@ -7,6 +7,7 @@ export const EventDetailPage = () => {
 };
 
 export const eventDetailLoader = async ({ _request, params }) => {
+  // Loader allow to fetch data just before rendering the component
   const id = params.eventId;
   const response = await fetch(`http://localhost:8080/events/${id}`);
 
