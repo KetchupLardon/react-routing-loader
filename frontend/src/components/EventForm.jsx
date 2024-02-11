@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Form } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
 import { capitalizeFirstLetter } from "../utils/strings";
@@ -16,7 +17,8 @@ export const EventForm = ({ _method, event }) => {
   };
 
   return (
-    <form className={classes.form}>
+    // The method POST from this form will not directly send it to the backend but to the action that was created at the page level
+    <Form method="post" className={classes.form}>
       {FORM_INPUT.map(({ type, name }) => (
         <p>
           <label htmlFor={name}>{capitalizeFirstLetter(name)}</label>
@@ -45,6 +47,6 @@ export const EventForm = ({ _method, event }) => {
         </button>
         <button>Save</button>
       </div>
-    </form>
+    </Form>
   );
 };
