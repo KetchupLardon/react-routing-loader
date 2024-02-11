@@ -22,6 +22,11 @@ export const action = async ({ request, params }) => {
     body: JSON.stringify(eventData),
   });
 
+  if (response.status === 422) {
+    // 422 is validation form isssue
+    return response;
+  }
+
   if (!response.ok) {
     throw json({ message: "Could not save event." }, { status: 500 });
   }

@@ -1,4 +1,4 @@
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate, useNavigation, useActionData } from "react-router-dom";
 import { Form } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
@@ -11,6 +11,7 @@ const FORM_INPUT = [
 ];
 
 export const EventForm = ({ _method, event }) => {
+  const data = useActionData(); // if response were return by the action
   const navigate = useNavigate();
   const navigation = useNavigation(); // Get transition state from moving to another url through link or through form's submitting
 
@@ -23,6 +24,13 @@ export const EventForm = ({ _method, event }) => {
   return (
     // The method POST from this form will not directly send it to the backend but to the action that was created at the page level
     <Form method="post" className={classes.form}>
+      {data && data.errors && (
+        <ul>
+          {Object.values(data.errors).map((err, index) => (
+            <li key={`event-form-error-${index}`}>{err}</li>
+          ))}
+        </ul>
+      )}
       {FORM_INPUT.map(({ type, name }, index) => (
         <p key={`event-input-${index}`}>
           <label htmlFor={name}>{capitalizeFirstLetter(name)}</label>
