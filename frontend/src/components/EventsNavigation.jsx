@@ -1,32 +1,24 @@
-import { NavLink } from "react-router-dom";
+import { NavigationItem } from "./NavigationItem";
 import classes from "./EventsNavigation.module.css";
+
+const NAVIGATION_SETTINGS = [
+  { path: "/events", text: "All Events" },
+  { path: "/events/new", text: "New Event" },
+];
 
 export const EventsNavigation = () => {
   return (
     <header className={classes.header}>
       <nav>
         <ul className={classes.list}>
-          <li>
-            <NavLink
-              to="/events"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-              end
-            >
-              All Events
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/events/new"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              New Event
-            </NavLink>
-          </li>
+          {NAVIGATION_SETTINGS.map(({ path, text }, index) => (
+            <NavigationItem
+              path={path}
+              isEnd={index === 0}
+              text={text}
+              classes={classes}
+            />
+          ))}
         </ul>
       </nav>
     </header>

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavigationItem } from "./NavigationItem";
 import classes from "./MainNavigation.module.css";
 
 const NAVIGATION_SETTINGS = [
@@ -12,17 +12,12 @@ export const MainNavigation = () => {
       <nav>
         <ul className={classes.list}>
           {NAVIGATION_SETTINGS.map(({ path, text }, index) => (
-            <li>
-              <NavLink
-                to={path}
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-                end={index === 0}
-              >
-                {text}
-              </NavLink>
-            </li>
+            <NavigationItem
+              path={path}
+              isEnd={index === 0}
+              text={text}
+              classes={classes}
+            />
           ))}
         </ul>
       </nav>
