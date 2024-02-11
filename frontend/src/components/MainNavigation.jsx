@@ -13,6 +13,7 @@ export const MainNavigation = () => {
         <ul className={classes.list}>
           {NAVIGATION_SETTINGS.map(({ path, text }, index) => (
             <NavigationItem
+              key={`main-navigation-${index}`}
               path={path}
               isEnd={index === 0}
               text={text}

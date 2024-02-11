@@ -13,6 +13,7 @@ export const EventsNavigation = () => {
         <ul className={classes.list}>
           {NAVIGATION_SETTINGS.map(({ path, text }, index) => (
             <NavigationItem
+              key={`event-navigation-${index}`}
               path={path}
               isEnd={index === 0}
               text={text}
