@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useNavigation } from "react-router-dom";
 import { Form } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
@@ -12,15 +12,19 @@ const FORM_INPUT = [
 
 export const EventForm = ({ _method, event }) => {
   const navigate = useNavigate();
+  const navigation = useNavigation(); // Get transition state from moving to another url through link or through form's submitting
+
+  const isSubmitting = navigation.state === "submitting";
+
   const cancelHandler = () => {
-    navigate("..");
+    navigate(".."); // Go back to last page
   };
 
   return (
     // The method POST from this form will not directly send it to the backend but to the action that was created at the page level
     <Form method="post" className={classes.form}>
-      {FORM_INPUT.map(({ type, name }) => (
-        <p>
+      {FORM_INPUT.map(({ type, name }, index) => (
+        <p key={`event-input-${index}`}>
           <label htmlFor={name}>{capitalizeFirstLetter(name)}</label>
           <input
             id={name}
@@ -42,10 +46,12 @@ export const EventForm = ({ _method, event }) => {
         />
       </p>
       <div className={classes.actions}>
-        <button type="button" onClick={cancelHandler}>
+        <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
           Cancel
         </button>
-        <button>Save</button>
+        <button disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Save"}
+        </button>
       </div>
     </Form>
   );
