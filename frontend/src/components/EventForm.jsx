@@ -10,7 +10,7 @@ const FORM_INPUT = [
   { type: "date", name: "date" },
 ];
 
-export const EventForm = ({ _method, event }) => {
+export const EventForm = ({ method, event }) => {
   const data = useActionData(); // if response were return by the action
   const navigate = useNavigate();
   const navigation = useNavigation(); // Get transition state from moving to another url through link or through form's submitting
@@ -22,8 +22,8 @@ export const EventForm = ({ _method, event }) => {
   };
 
   return (
-    // The method POST from this form will not directly send it to the backend but to the action that was created at the page level
-    <Form method="post" className={classes.form}>
+    // The method will not directly connect to the backend but will be redirect to the action that was created
+    <Form method={method} className={classes.form}>
       {data && data.errors && (
         <ul>
           {Object.values(data.errors).map((err, index) => (
